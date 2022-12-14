@@ -1,4 +1,4 @@
-### 8mu Public Repo 
+###  8mu Public Repo 
 
 This is a WIP public repo for the Music Thing Modular 8mu midi controller. 
 
