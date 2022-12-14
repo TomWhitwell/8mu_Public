@@ -1,2 +1,9 @@
-# 8mu_Public
+### 8mu Public Repo 
+
+This is a WIP public repo for the Music Thing Modular 8mu midi controller. 
+
+Files are not yet production ready, do not use these files (yet). 
+
+Firmware is MIT Licensed. 
+Hardware is CC-BY-SA. 
  
