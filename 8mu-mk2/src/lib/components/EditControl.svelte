@@ -1,12 +1,13 @@
 <script lang="ts">
   import { editConfiguration } from "$lib/stores";
+  import { inputNames, channelColours, channelNames} from '$lib/utils'
   import type { Control } from "$lib/types";
 
   export let index: number;
   export let editControl: Control;
 
-  const possibleChannels = Array.from(Array(16).keys());
-  possibleChannels.forEach((c, i) => (possibleChannels[i] = c + 1));
+  const possibleChannels = Array.from(Array(17).keys());
+  possibleChannels.forEach((c, i) => (possibleChannels[i] = c));
 
   const touchChannel = () => {
     // trigger reactivity
@@ -29,12 +30,12 @@
 </script>
 
 <dl class="config-column">
-  <dt class="index">{index + 1}</dt>
+  <dt class='index' style='background-color: rgb({channelColours[index]},125,125)'>{inputNames[index]}</dt>
   <dt>Channel</dt>
   <dd>
     <select bind:value={editControl.channel} on:change={touchChannel}>
       {#each possibleChannels as channel}
-        <option value={channel}>{channel}</option>
+        <option value={channel}>{channelNames[channel]}</option>
       {/each}
     </select>
   </dd>
@@ -46,8 +47,7 @@
       on:change={touchCC}
       on:blur={touchCC}
       min="0"
-      max="127"
-    />
+      max="127" />
   </dd>
 </dl>
 

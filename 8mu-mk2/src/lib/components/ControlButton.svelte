@@ -1,30 +1,37 @@
-<script lang="ts">
-  import type { Control } from "$lib/types";
-  import { inputNames, channelColours } from "$lib/utils";
+<script lang='ts'>
+  import { CHROMATIC, buttonModeNames, buttonNames } from "$lib/utils";
+  import type { Button } from "$lib/types";
 
-  export let control: Control;
-  export let index: number;
-  export let disableValue = false;
+  export let button: Button;
+  export let index:number;
 
-  $: channelName = control.channel == 0 ? "OFF" : `${control.channel}`
+  function fromMidi (midi:number) {
+    const name = CHROMATIC[midi % 12]
+    const oct = Math.floor(midi / 12) - 1
+    return `${name}${oct}`
+  }
+
+  $: modeName = buttonModeNames[button.mode]
+  $: buttonName = buttonNames[index]
 </script>
 
 <dl class='config-column'>
-  <dt class='index' style='background-color: rgb({channelColours[index]},125,125)'>{inputNames[index]}</dt>
+  <dt class='index'>{buttonName}</dt>
   <dt>Channel</dt>
-  <dd>{channelName}</dd>
-  <dt>CC</dt>
-  <dd>{control.cc}</dd>
-  {#if !disableValue}
-  <dt>Value</dt>
-  <dd class='display'>
-    <div class='inner'>
-      {#if control.val !== undefined}
-      <span class="{control.val < 27 ? 'lowvalue':''}">{control.val}</span>
-      {/if}
-      <div class='bar' style="height: {control.val}px; background-color: rgb({channelColours[index]},125,125)"></div>
-    </div>
-  </dd>
+  <dd>{button.channel}</dd>
+  <dt>Mode</dt>
+  <dd>{modeName}</dd>
+
+  {#if button.mode == 1}
+    <dt>Note Number</dt>
+    <dd>{button.paramA} ({fromMidi(button.paramA)})</dd>
+    <dt>Velocity</dt>
+    <dd>{button.paramB}</dd>
+  {:else}
+    <dt>CC</dt>
+    <dd>{button.paramA}</dd>
+      <dt>On Value</dt>
+    <dd>{button.paramB}</dd>
   {/if}
 </dl>
 
