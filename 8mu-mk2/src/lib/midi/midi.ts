@@ -106,7 +106,7 @@ const setupMidiHeartBeat = () => {
   });
   setInterval(() => {
     doMidiHeartBeat();
-  }, 5000);
+  }, 1000); // Changed interval from 5000 to 1000 to make more responsive to bank changes
 };
 
 const doMidiHeartBeat = () => {
@@ -120,6 +120,11 @@ const doMidiHeartBeat = () => {
     if (sixteenN) {
       selectedMidiInput.set(sixteenN);
     }
+
+    const mtmN = get(midiInputs).find((input) => input.name.match(/.*Music.*/));
+    if (mtmN) {
+      selectedMidiInput.set(mtmN);
+    }
   }
   if (!selectedOutput && get(midiOutputs).length > 0) {
     const sixteenN = get(midiOutputs).find((output) =>
@@ -128,9 +133,14 @@ const doMidiHeartBeat = () => {
     if (sixteenN) {
       selectedMidiOutput.set(sixteenN);
     }
+    const mtmN = get(midiOutputs).find((output) => output.name.match(/.*Music.*/));
+    if(mtmN) {
+      selectedMidiOutput.set(mtmN)
+    }
   }
-
-  if (!get(configuration) && selectedInput && selectedOutput) {
+  // this change allows heartbeat to continue - repeatedly asking the device for configuration so long as it's attached. 
+  // if (!get(configuration) && selectedInput && selectedOutput) {
+  if (selectedInput && selectedOutput) {
     listenForCC(selectedInput);
     listenForSysex(selectedInput);
     logger("Hearbeat requesting config.");
