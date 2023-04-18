@@ -63,11 +63,15 @@ export const exportConfig = (configObject: ControllerConfiguration) => {
     "data:text/json;charset=utf-8," +
     encodeURIComponent(configToJsonString(configObject));
 
+  const deviceName = deviceForId(configObject.deviceId).name;
+  const sanitizedDeviceName = deviceName
+    .trim()
+    .toLowerCase()
+    .replaceAll(" ", "_");
+
   const downloadAnchorNode = document.createElement("a");
   downloadAnchorNode.href = dataStr;
-  downloadAnchorNode.download = `${
-    deviceForId(configObject.deviceId).name
-  }_controller_config.json`;
+  downloadAnchorNode.download = `${sanitizedDeviceName}_controller_config.json`;
   document.body.appendChild(downloadAnchorNode); // required for firefox
   downloadAnchorNode.click();
   downloadAnchorNode.remove();
