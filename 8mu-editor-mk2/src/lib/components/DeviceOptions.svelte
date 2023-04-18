@@ -105,12 +105,12 @@
 
     <p class="note"><strong>Follower</strong> mode is for use with Teletype.</p>
     <p class="note">
-      <strong>Leader</strong> mode is for use with Ansible, TXo, ER-301. 16n will
+      <strong>Leader</strong> mode is for use with Ansible, TXo, ER-301. 8mu will
       not respond to Teletype when in leader mode.
     </p>
     <p class="note">
       This will not take effect until you restart (disconnect/reconnect) your
-      16n.
+      8mu.
     </p>
     <p class="note small">
       ("Leader" is sometimes also referred to as 'master' mode)
