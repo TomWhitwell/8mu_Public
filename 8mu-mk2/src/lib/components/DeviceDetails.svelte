@@ -21,7 +21,7 @@
     ) {
       versionCompared = true;
       if (semverGt(latestVersion, c.firmwareVersion)) {
-        upgradeString = `A new version of the 16n firmware (${latestVersion}) is available.`;
+        upgradeString = `A new version of the 8mu firmware (${latestVersion}) is available.`;
       } else {
         upgradeString = "";
       }
@@ -45,7 +45,7 @@
           <span class="upgrade">
             {upgradeString}
             <a
-              href="https://api.github.com/repos/TomWhitwell/Smith-Kakehashi/releases"
+              href="https://github.com/TomWhitwell/Smith-Kakehashi/releases"
               >Download</a
             >
           </span>
