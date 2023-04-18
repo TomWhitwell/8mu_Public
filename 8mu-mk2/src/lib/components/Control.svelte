@@ -6,25 +6,35 @@
   export let index: number;
   export let disableValue = false;
 
-  $: channelName = control.channel == 0 ? "OFF" : `${control.channel}`
+  $: channelName = control.channel == 0 ? "OFF" : `${control.channel}`;
 </script>
 
-<dl class='config-column'>
-  <dt class='index' style='background-color: rgb({channelColours[index]},125,125)'>{inputNames[index]}</dt>
+<dl class="config-column">
+  <dt
+    class="index"
+    style="background-color: rgb({channelColours[index]},125,125)"
+  >
+    {inputNames[index]}
+  </dt>
   <dt>Channel</dt>
   <dd>{channelName}</dd>
   <dt>CC</dt>
   <dd>{control.cc}</dd>
   {#if !disableValue}
-  <dt>Value</dt>
-  <dd class='display'>
-    <div class='inner'>
-      {#if control.val !== undefined}
-      <span class="{control.val < 27 ? 'lowvalue':''}">{control.val}</span>
-      {/if}
-      <div class='bar' style="height: {control.val}px; background-color: rgb({channelColours[index]},125,125)"></div>
-    </div>
-  </dd>
+    <dt>Value</dt>
+    <dd class="display">
+      <div class="inner">
+        {#if control.val !== undefined}
+          <span class={control.val < 27 ? "lowvalue" : ""}>{control.val}</span>
+        {/if}
+        <div
+          class="bar"
+          style="height: {control.val}px; background-color: rgb({channelColours[
+            index
+          ]},125,125)"
+        />
+      </div>
+    </dd>
   {/if}
 </dl>
 

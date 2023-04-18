@@ -1,22 +1,22 @@
-<script lang='ts'>
+<script lang="ts">
   import { CHROMATIC, buttonModeNames, buttonNames } from "$lib/utils";
   import type { Button } from "$lib/types";
 
   export let button: Button;
-  export let index:number;
+  export let index: number;
 
-  function fromMidi (midi:number) {
-    const name = CHROMATIC[midi % 12]
-    const oct = Math.floor(midi / 12) - 1
-    return `${name}${oct}`
+  function fromMidi(midi: number) {
+    const name = CHROMATIC[midi % 12];
+    const oct = Math.floor(midi / 12) - 1;
+    return `${name}${oct}`;
   }
 
-  $: modeName = buttonModeNames[button.mode]
-  $: buttonName = buttonNames[index]
+  $: modeName = buttonModeNames[button.mode];
+  $: buttonName = buttonNames[index];
 </script>
 
-<dl class='config-column'>
-  <dt class='index'>{buttonName}</dt>
+<dl class="config-column">
+  <dt class="index">{buttonName}</dt>
   <dt>Channel</dt>
   <dd>{button.channel}</dd>
   <dt>Mode</dt>
@@ -30,7 +30,7 @@
   {:else}
     <dt>CC</dt>
     <dd>{button.paramA}</dd>
-      <dt>On Value</dt>
+    <dt>On Value</dt>
     <dd>{button.paramB}</dd>
   {/if}
 </dl>

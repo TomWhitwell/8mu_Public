@@ -1,6 +1,6 @@
 <script lang="ts">
   import { editConfiguration } from "$lib/stores";
-  import { inputNames, channelColours, channelNames} from '$lib/utils'
+  import { inputNames, channelColours, channelNames } from "$lib/utils";
   import type { Control } from "$lib/types";
 
   export let index: number;
@@ -30,7 +30,12 @@
 </script>
 
 <dl class="config-column">
-  <dt class='index' style='background-color: rgb({channelColours[index]},125,125)'>{inputNames[index]}</dt>
+  <dt
+    class="index"
+    style="background-color: rgb({channelColours[index]},125,125)"
+  >
+    {inputNames[index]}
+  </dt>
   <dt>Channel</dt>
   <dd>
     <select bind:value={editControl.channel} on:change={touchChannel}>
@@ -47,7 +52,8 @@
       on:change={touchCC}
       on:blur={touchCC}
       min="0"
-      max="127" />
+      max="127"
+    />
   </dd>
 </dl>
 

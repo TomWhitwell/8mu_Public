@@ -133,12 +133,14 @@ const doMidiHeartBeat = () => {
     if (sixteenN) {
       selectedMidiOutput.set(sixteenN);
     }
-    const mtmN = get(midiOutputs).find((output) => output.name.match(/.*Music.*/));
-    if(mtmN) {
-      selectedMidiOutput.set(mtmN)
+    const mtmN = get(midiOutputs).find((output) =>
+      output.name.match(/.*Music.*/),
+    );
+    if (mtmN) {
+      selectedMidiOutput.set(mtmN);
     }
   }
-  // this change allows heartbeat to continue - repeatedly asking the device for configuration so long as it's attached. 
+  // this change allows heartbeat to continue - repeatedly asking the device for configuration so long as it's attached.
   // if (!get(configuration) && selectedInput && selectedOutput) {
   if (selectedInput && selectedOutput) {
     listenForCC(selectedInput);

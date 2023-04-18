@@ -1,11 +1,11 @@
-<script lang='ts'>
+<script lang="ts">
   import { editConfiguration } from "$lib/stores.js";
   import { CHROMATIC, buttonNames, buttonModeNames } from "$lib/utils";
 
   import type { Button } from "$lib/types";
 
-  export let index:number;
-  export let editButton:Button;
+  export let index: number;
+  export let editButton: Button;
 
   const possibleChannels = Array.from(Array(16).keys());
   possibleChannels.forEach((c, i) => (possibleChannels[i] = c + 1));
@@ -13,7 +13,7 @@
   const possibleCCs = Array.from(Array(128).keys());
 
   function touchControl() {
-    editConfiguration.update(old => $editConfiguration);
+    editConfiguration.update(() => $editConfiguration);
   }
 
   const touchChannel = () => {
@@ -21,16 +21,15 @@
     editConfiguration.set($editConfiguration);
   };
 
-  function fromMidi (midi:number) {
-    const name = CHROMATIC[midi % 12]
-    const oct = Math.floor(midi / 12) - 1
-    return `${name}${oct}`
+  function fromMidi(midi: number) {
+    const name = CHROMATIC[midi % 12];
+    const oct = Math.floor(midi / 12) - 1;
+    return `${name}${oct}`;
   }
-  
 </script>
 
 <dl class="config-column">
-  <dt class='index'>Button {buttonNames[index]}</dt>
+  <dt class="index">Button {buttonNames[index]}</dt>
   <dt>Channel</dt>
   <dd>
     <select bind:value={editButton.channel} on:change={touchChannel}>
@@ -42,50 +41,50 @@
 
   <dt>Mode</dt>
   <dd>
-   <select bind:value={editButton.mode} on:change={touchControl}>
-    {#each buttonModeNames as mode, index}
-      <option value={index}>{mode}</option>
-    {/each}
+    <select bind:value={editButton.mode} on:change={touchControl}>
+      {#each buttonModeNames as mode, index}
+        <option value={index}>{mode}</option>
+      {/each}
     </select>
   </dd>
 
   {#if editButton.mode == 1}
-  <dt>Note number</dt>
-  <dd>
-    <select bind:value={editButton.paramA} on:change={touchControl}>
-    {#each possibleCCs as CC}
-      <option value={CC}>{CC}</option>
-    {/each}
-    </select>
-    ({fromMidi(editButton.paramA)})
-  </dd>
-  
-  <dt>Velocity</dt>
-  <dd>
-    <select bind:value={editButton.paramB} on:change={touchControl}>
-    {#each possibleCCs as CC}
-      <option value={CC}>{CC}</option>
-    {/each}
-    </select>
-  </dd>
+    <dt>Note number</dt>
+    <dd>
+      <select bind:value={editButton.paramA} on:change={touchControl}>
+        {#each possibleCCs as CC}
+          <option value={CC}>{CC}</option>
+        {/each}
+      </select>
+      ({fromMidi(editButton.paramA)})
+    </dd>
+
+    <dt>Velocity</dt>
+    <dd>
+      <select bind:value={editButton.paramB} on:change={touchControl}>
+        {#each possibleCCs as CC}
+          <option value={CC}>{CC}</option>
+        {/each}
+      </select>
+    </dd>
   {:else}
-  <dt>Controller</dt>
-  <dd>
-    <select bind:value={editButton.paramA} on:change={touchControl}>
-    {#each possibleCCs as CC}
-      <option value={CC}>{CC}</option>
-    {/each}
-    </select>
-  </dd>
-  
-  <dt>On value</dt>
-  <dd>
-    <select bind:value={editButton.paramB} on:change={touchControl}>
-    {#each possibleCCs as CC}
-      <option value={CC}>{CC}</option>
-    {/each}
-    </select>
-  </dd>
+    <dt>Controller</dt>
+    <dd>
+      <select bind:value={editButton.paramA} on:change={touchControl}>
+        {#each possibleCCs as CC}
+          <option value={CC}>{CC}</option>
+        {/each}
+      </select>
+    </dd>
+
+    <dt>On value</dt>
+    <dd>
+      <select bind:value={editButton.paramB} on:change={touchControl}>
+        {#each possibleCCs as CC}
+          <option value={CC}>{CC}</option>
+        {/each}
+      </select>
+    </dd>
   {/if}
 </dl>
 

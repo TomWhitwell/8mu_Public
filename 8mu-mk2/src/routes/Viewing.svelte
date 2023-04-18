@@ -27,7 +27,7 @@
 
   $: device = $configuration ? deviceForId($configuration.deviceId) : null;
 
-  $: currentBank = $configuration ? $configuration.pageNumber+1 : "?"
+  $: currentBank = $configuration ? $configuration.pageNumber + 1 : "?";
 </script>
 
 <Subhead title="Bank {currentBank}: Current Configuration">
@@ -43,56 +43,56 @@
   <TabList>
     <Tab>USB</Tab>
     <Tab>TRS Jack</Tab>
-    <Tab>USB Buttons</Tab> 
-    <Tab>TRS Buttons</Tab> 
+    <Tab>USB Buttons</Tab>
+    <Tab>TRS Buttons</Tab>
   </TabList>
 
   <TabPanel>
     {#if $configuration && $configuration.usbControls}
-    <div id="controls">
-      {#each $configuration.usbControls as control, index}
-        {#if device && index < device.controlCount}
-          <Control {control} {index} />
-        {/if}
-      {/each}
-    </div>
+      <div id="controls">
+        {#each $configuration.usbControls as control, index}
+          {#if device && index < device.controlCount}
+            <Control {control} {index} />
+          {/if}
+        {/each}
+      </div>
     {/if}
   </TabPanel>
 
   <TabPanel>
     {#if $configuration && $configuration.trsControls}
-    <div id="controls">
-      {#each $configuration.trsControls as control, index}
-        {#if device && index < device.controlCount}
-          <Control {control} {index} disableValue={true} />
-        {/if}
-      {/each}
-    </div>
-    <p>There is no realtime preview of the TRS outputs.</p>
+      <div id="controls">
+        {#each $configuration.trsControls as control, index}
+          {#if device && index < device.controlCount}
+            <Control {control} {index} disableValue={true} />
+          {/if}
+        {/each}
+      </div>
+      <p>There is no realtime preview of the TRS outputs.</p>
     {/if}
   </TabPanel>
 
   <TabPanel>
     {#if $configuration && device?.buttonCount && $configuration.usbButtons}
-    <div id="controls">
-      {#each $configuration.usbButtons as button, index}
-        {#if device && index < device.buttonCount}
-          <ControlButton {button} {index} />
-        {/if}
-      {/each}
-    </div>
+      <div id="controls">
+        {#each $configuration.usbButtons as button, index}
+          {#if device && index < device.buttonCount}
+            <ControlButton {button} {index} />
+          {/if}
+        {/each}
+      </div>
     {/if}
   </TabPanel>
 
   <TabPanel>
     {#if $configuration && device?.buttonCount && $configuration.trsButtons}
-    <div id="controls">
-      {#each $configuration.trsButtons as button, index}
-        {#if device && index < device.buttonCount}
-          <ControlButton {button} {index} />
-        {/if}
-      {/each}
-    </div>
+      <div id="controls">
+        {#each $configuration.trsButtons as button, index}
+          {#if device && index < device.buttonCount}
+            <ControlButton {button} {index} />
+          {/if}
+        {/each}
+      </div>
     {/if}
   </TabPanel>
 </Tabs>

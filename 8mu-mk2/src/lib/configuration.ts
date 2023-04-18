@@ -52,35 +52,37 @@ export const isEquivalent = (
   let usbButtonEquivalent = true;
   let trsButtonEquivalent = true;
 
-  configA.usbButtons.forEach((button:Button, i) => {
+  configA.usbButtons.forEach((button: Button, i) => {
     const otherButton = configB.usbButtons[i];
     if (
       button.channel != otherButton.channel ||
       button.mode != otherButton.mode ||
-      (button.paramA != otherButton.paramA) ||
-        (button.paramB != otherButton.paramB)
+      button.paramA != otherButton.paramA ||
+      button.paramB != otherButton.paramB
     ) {
       usbButtonEquivalent = false;
     }
   });
 
-  configA.trsButtons.forEach((button:Button, i) => {
+  configA.trsButtons.forEach((button: Button, i) => {
     const otherButton = configB.trsButtons[i];
     if (
       button.channel != otherButton.channel ||
       button.mode != otherButton.mode ||
-      (button.paramA != otherButton.paramA) ||
-        (button.paramB != otherButton.paramB)
+      button.paramA != otherButton.paramA ||
+      button.paramB != otherButton.paramB
     ) {
       trsButtonEquivalent = false;
     }
   });
 
-  return optionEquivalents && 
-         usbEquivalent && 
-         trsEquivalent && 
-         usbButtonEquivalent && 
-         trsButtonEquivalent;
+  return (
+    optionEquivalents &&
+    usbEquivalent &&
+    trsEquivalent &&
+    usbButtonEquivalent &&
+    trsButtonEquivalent
+  );
 };
 
 export const toSysexArray = (config: ControllerConfiguration) => {
@@ -114,8 +116,6 @@ export const toSysexArray = (config: ControllerConfiguration) => {
   array[14] = config.dxMode ? 1 : 0;
   array[15] = config.pageNumber;
 
-
-
   const usbChannelOffset = 20;
   const trsChannelOffset = 36;
   const usbControlOffset = 52;
@@ -130,14 +130,14 @@ export const toSysexArray = (config: ControllerConfiguration) => {
     array[index + trsControlOffset] = control.cc;
   });
 
-  let usbButtonChannelOffset = 84;
-  let trsButtonChannelOffset = 88;
-  let usbButtonModeOffset = 92;
-  let trsButtonModeOffset = 96;
-  let usbButtonParamAOffset = 100;
-  let trsButtonParamAOffset = 104;
-  let usbButtonParamBOffset = 108;
-  let trsButtonParamBOffset = 112;
+  const usbButtonChannelOffset = 84;
+  const trsButtonChannelOffset = 88;
+  const usbButtonModeOffset = 92;
+  const trsButtonModeOffset = 96;
+  const usbButtonParamAOffset = 100;
+  const trsButtonParamAOffset = 104;
+  const usbButtonParamBOffset = 108;
+  const trsButtonParamBOffset = 112;
 
   config.usbButtons.forEach((button, index) => {
     array[index + usbButtonChannelOffset] = button.channel;
@@ -214,7 +214,7 @@ export const updateFromJson = (
   json: ControllerConfiguration,
 ) => {
   Object.keys(json).forEach((key) => {
-    if(key !== 'pageNumber') {
+    if (key !== "pageNumber") {
       config[key] = json[key];
     }
   });
@@ -351,7 +351,7 @@ export const configFromSysexArray = (data: number[]) => {
     faderMax,
     usbButtons,
     trsButtons,
-    pageNumber
+    pageNumber,
   } as ControllerConfiguration;
 };
 

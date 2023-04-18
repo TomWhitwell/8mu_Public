@@ -9,7 +9,7 @@ export type Button = {
   paramA: number;
   paramB: number;
   mode: number;
-}
+};
 
 export type ControllerConfiguration = {
   faderBlink: boolean;

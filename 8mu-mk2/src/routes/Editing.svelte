@@ -51,76 +51,74 @@
 </script>
 
 {#if $editConfiguration && $configuration}
+  <Subhead title="Bank {$configuration.pageNumber + 1}: Edit configuration">
+    <Button label="Cancel" icon="times" click={cancelEditMode} />
+    <Button label="Import config" icon="file-import" click={doImportConfig} />
+    <Button
+      label="Update controller"
+      icon="download"
+      click={transmitConfig}
+      disabled={!configDirty}
+    />
+  </Subhead>
 
-<Subhead title="Bank {$configuration.pageNumber + 1}: Edit configuration">
-  <Button label="Cancel" icon="times" click={cancelEditMode} />
-  <Button label="Import config" icon="file-import" click={doImportConfig} />
-  <Button
-    label="Update controller"
-    icon="download"
-    click={transmitConfig}
-    disabled={!configDirty}
-  />
-</Subhead>
+  <Tabs>
+    <TabList>
+      <Tab>USB</Tab>
+      <Tab>TRS Midi</Tab>
+      <Tab>USB Buttons</Tab>
+      <Tab>TRS Buttons</Tab>
+      <Tab>Device Options</Tab>
+    </TabList>
 
-<Tabs>
-  <TabList>
-    <Tab>USB</Tab>
-    <Tab>TRS Midi</Tab>
-    <Tab>USB Buttons</Tab> 
-    <Tab>TRS Buttons</Tab> 
-    <Tab>Device Options</Tab>
-  </TabList>
+    <TabPanel>
+      <div id="controls">
+        {#each $editConfiguration.usbControls as editControl, index}
+          {#if device && index < device.controlCount}
+            <EditControl {editControl} {index} />
+          {/if}
+        {/each}
+      </div>
+    </TabPanel>
 
-  <TabPanel>
-    <div id="controls">
-      {#each $editConfiguration.usbControls as editControl, index}
-        {#if device && index < device.controlCount}
-          <EditControl {editControl} {index} />
-        {/if}
-      {/each}
-    </div>
-  </TabPanel>
+    <TabPanel>
+      <div id="controls">
+        {#each $editConfiguration.trsControls as editControl, index}
+          {#if device && index < device.controlCount}
+            <EditControl {editControl} {index} />
+          {/if}
+        {/each}
+      </div>
+    </TabPanel>
 
-  <TabPanel>
-    <div id="controls">
-      {#each $editConfiguration.trsControls as editControl, index}
-        {#if device && index < device.controlCount}
-          <EditControl {editControl} {index} />
-        {/if}
-      {/each}
-    </div>
-  </TabPanel>
+    <TabPanel>
+      {#if device?.buttonCount}
+        <div id="controls">
+          {#each $editConfiguration.usbButtons as button, index}
+            {#if index < device.buttonCount}
+              <EditControlButton editButton={button} {index} />
+            {/if}
+          {/each}
+        </div>
+      {/if}
+    </TabPanel>
 
-  <TabPanel>
-    {#if device?.buttonCount}
-    <div id="controls">
-     {#each $editConfiguration.usbButtons as button, index}
-       {#if index < device.buttonCount}
-         <EditControlButton editButton={button} {index} />
-       {/if}
-     {/each}
-   </div>
-   {/if}
- </TabPanel>
- 
- <TabPanel>
-    {#if device?.buttonCount}
-    <div id="controls">
-     {#each $editConfiguration.trsButtons as button, index}
-       {#if index < device.buttonCount}
-         <EditControlButton editButton={button} {index} />
-       {/if}
-     {/each}
-   </div>
-    {/if}
- </TabPanel>
+    <TabPanel>
+      {#if device?.buttonCount}
+        <div id="controls">
+          {#each $editConfiguration.trsButtons as button, index}
+            {#if index < device.buttonCount}
+              <EditControlButton editButton={button} {index} />
+            {/if}
+          {/each}
+        </div>
+      {/if}
+    </TabPanel>
 
-  <TabPanel>
-    <DeviceOptions />
-  </TabPanel>
-</Tabs>
-
+    <TabPanel>
+      <DeviceOptions />
+    </TabPanel>
+  </Tabs>
 {/if}
 
 <style>

@@ -44,7 +44,8 @@
         {#if upgradeString.trim() != ""}
           <span class="upgrade">
             {upgradeString}
-            <a href="https://api.github.com/repos/TomWhitwell/Smith-Kakehashi/releases"
+            <a
+              href="https://api.github.com/repos/TomWhitwell/Smith-Kakehashi/releases"
               >Download</a
             >
           </span>

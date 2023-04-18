@@ -7,11 +7,7 @@
 
   import { onMIDISuccess } from "$lib/midi/midi";
 
-  import {
-    configuration,
-    editMode,
-    webMidiEnabled,
-  } from "$lib/stores";
+  import { configuration, editMode, webMidiEnabled } from "$lib/stores";
 
   import DeviceDetails from "$lib/components/DeviceDetails.svelte";
   import Editing from "./Editing.svelte";
@@ -29,7 +25,6 @@
         .catch((err) => alert(err));
     }
   });
-
 </script>
 
 <main>
@@ -50,7 +45,9 @@
         <p />
       {:else}
         <!-- webmidi compatible browser, but no device -->
-        <p class="notice">Searching for a controller via USB, hang on a second or ten.</p>
+        <p class="notice">
+          Searching for a controller via USB, hang on a second or ten.
+        </p>
       {/if}
     {:else}
       <!-- webmidi incompatible device -->
