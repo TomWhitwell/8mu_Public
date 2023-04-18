@@ -1,12 +1,14 @@
-# 16n editor
+# 8mu editor
 
-The 16n editor allows you to edit the configuration of your 16n from within a web browser. It supports 16ns running firmware **2.0.0** and up.
+The 8mu editor allows you to edit the configuration of your 8mu from within a web browser. 
 
-The 16n editor is a Javascript app based around [SvelteKit](sk).
+The 8mu editor is a rework of the 16n editor,  a Javascript app based around [Svelte](svelte) built by Tom Armitage. The rest of these notes are largely his.
 
-Here's a video walkthrough:
+---
 
-[![You can view a video overview of the editor functionality here.](https://img.youtube.com/vi/3n2_3b55qWY/0.jpg)](https://youtu.be/3n2_3b55qWY)
+The 8mu editor allows you to edit the configuration of your 8mu from within a web browser. It supports 8mu hardware running firmware **1.0.0** and up.
+
+The 8mu editor is a Javascript app based around [SvelteKit](sk).
 
 Version 2.0.0 of the editor is a large overhaul, with a few goals:
 
@@ -24,7 +26,7 @@ The result is a little more readable by most JS developers, and we gain a lot of
 ## Usage Requirements
 
 - As a WebMIDI app, you need a client that can support it. That basically means Chrome right now.
-- A 16n running firmware v2.0.0 or higher.
+- A 8mu running firmware v1.0.0 or higher.
 
 ## Installation
 
@@ -52,7 +54,7 @@ This will emit a production build, as a purely static site, to `build/`. You can
 
 ## Deployment
 
-The built site (in `/build`) is copied over to the 16n repository and deployed from there.
+The built site (in `/build`) is copied over to the 8mu site repository and deployed from there.
 
 ## Code formatting
 
@@ -77,8 +79,8 @@ Code linting is handled with ESLint, and code must meet the Prettier formatting 
 - `src/lib/logger.ts` is a convenience function to log items to the console in development mode.
 - `src/lib/stores.ts` exports the various stores that will be used throughout the application (see later)
 - `src/lib/types.ts` exports custom types used within the application: notably, individual `Control` items, and an entire `ControllerConfiguration`
-- `src/lib/midi/midi.ts` exports all the necessary functions to listen to MIDI ports as they connect/disconnect, request 16n configs from appropriate devices, and listen to individual events from the connected devices.
-- `src/lib/midi/sysex.ts` exports all the necessary functions to send the various System Exclusive messages a 16n supports.
+- `src/lib/midi/midi.ts` exports all the necessary functions to listen to MIDI ports as they connect/disconnect, request 8mu configs from appropriate devices, and listen to individual events from the connected devices.
+- `src/lib/midi/sysex.ts` exports all the necessary functions to send the various System Exclusive messages a 8mu supports.
 
 ## Stores
 
@@ -87,11 +89,10 @@ Svelte uses stores to store state and react to state changes. `src/lib/stores.ts
 There are a number of stores exported that are used throughout the application:
 
 - `configuration` describes the current Configuration being shown in Viewing mode.
-- `controllerMightNeedFactoryReset` represents if the current 16n isn't quite configured right.
 - `editConfiguration` is the current configuration being _edited_ in Editing mode.
 - `editMode` is a boolean representing if the editor is in Editing mode or not.
 - `midiInputs` and `midiOutputs` describes the currently connected MIDI input/output ports.
-- `selectedMidiInput` and `selectedMidiOutput` represent the actual port that's used to talk to a 16n.
+- `selectedMidiInput` and `selectedMidiOutput` represent the actual port that's used to talk to a 8mu.
 - `webMidiEnabled` is a boolean representing if the current browser supports WebMidi.
 
 ## Icons
