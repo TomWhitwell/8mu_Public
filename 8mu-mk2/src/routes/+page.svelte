@@ -44,7 +44,7 @@
 
 <main>
   <div id="head">
-    <h1>16n configuration tool</h1>
+    <h1>8mu configuration tool</h1>
     <DeviceDetails />
   </div>
 
@@ -55,12 +55,12 @@
           <!-- webmidi enabled, config not receiving, despite having a firmware that should work -->
           <div class="notice">
             <p>
-              It looks like a 16n is trying to connect, but may have a corrupt
+              It looks like a 8mu is trying to connect, but may have a corrupt
               memory.
             </p>
             <p>
               <Button
-                label="Click to reset your 16n's EEPROM to factory defaults"
+                label="Click to reset your 8mu's EEPROM to factory defaults"
                 click={transmitFactoryReset}
               />
             </p>
@@ -76,7 +76,7 @@
         {/if}
       {:else}
         <!-- webmidi compatible browser, but no device -->
-        <p class="notice">Connect a controller via USB.</p>
+        <p class="notice">Searching for a controller via USB, hang on a second or ten.</p>
       {/if}
     {:else}
       <!-- webmidi incompatible device -->

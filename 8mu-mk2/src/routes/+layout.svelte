@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-  <title>16n Controller Editor</title>
+  <title>8mu Controller Editor</title>
 </svelte:head>
 
 <slot />
