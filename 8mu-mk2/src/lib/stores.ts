@@ -3,7 +3,6 @@ import type { ControllerConfiguration } from "$lib/types";
 import type { Input, Output } from "webmidi";
 
 export const configuration = writable(null as ControllerConfiguration | null);
-export const controllerMightNeedFactoryReset = writable(false);
 export const editConfiguration = writable(
   null as ControllerConfiguration | null,
 );

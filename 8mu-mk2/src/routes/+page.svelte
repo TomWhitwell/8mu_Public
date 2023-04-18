@@ -51,29 +51,13 @@
   <div id="inner">
     {#if $webMidiEnabled}
       {#if $configuration}
-        {#if $controllerMightNeedFactoryReset && semverGte($configuration.firmwareVersion, "2.1.0")}
-          <!-- webmidi enabled, config not receiving, despite having a firmware that should work -->
-          <div class="notice">
-            <p>
-              It looks like a 8mu is trying to connect, but may have a corrupt
-              memory.
-            </p>
-            <p>
-              <Button
-                label="Click to reset your 8mu's EEPROM to factory defaults"
-                click={transmitFactoryReset}
-              />
-            </p>
-          </div>
+        <!-- webmidi enabled, config setup, we're good to edit -->
+        {#if $editMode}
+          <Editing />
         {:else}
-          <!-- webmidi enabled, config setup, we're good to edit -->
-          {#if $editMode}
-            <Editing />
-          {:else}
-            <Viewing />
-          {/if}
-          <p />
+          <Viewing />
         {/if}
+        <p />
       {:else}
         <!-- webmidi compatible browser, but no device -->
         <p class="notice">Searching for a controller via USB, hang on a second or ten.</p>

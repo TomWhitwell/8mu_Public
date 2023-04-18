@@ -12,7 +12,6 @@ import { logger } from "$lib/logger";
 import { isOxionSysex, requestConfig } from "$lib/midi/sysex";
 import {
   configuration,
-  controllerMightNeedFactoryReset,
   midiInputs,
   midiOutputs,
   selectedMidiInput,
@@ -171,7 +170,6 @@ const listenForSysex = (input: Input) => {
       logger("Received config", get(configuration));
 
       configTimeout = -1;
-      controllerMightNeedFactoryReset.set(false);
     }
   });
   logger("Attached sysex listener to ", input.name);
@@ -180,12 +178,6 @@ const listenForSysex = (input: Input) => {
 const doRequestConfig = () => {
   if (configTimeout < 0) {
     configTimeout = Date.now();
-  }
-
-  if (Date.now() - configTimeout > 8000) {
-    if (!get(controllerMightNeedFactoryReset)) {
-      controllerMightNeedFactoryReset.set(true);
-    }
   }
 
   const selectedInput = get(selectedMidiInput);

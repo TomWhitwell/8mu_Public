@@ -15,7 +15,6 @@ const SYSEX_CONSTANTS = {
   updateDeviceOptionsMsg: 0x0d,
   updateUSBOptionsMessage: 0x0c,
   updateTRSOptionsMessage: 0x0b,
-  factoryResetMsg: 0x1a, // 1ntiAlize
 };
 
 export const isOxionSysex = (data: number[]) => {
@@ -70,11 +69,5 @@ export const sendShortConfiguration = (
 export const requestConfig = (output: Output) => {
   output.sendSysex(SYSEX_CONSTANTS.sysexMfgId, [
     SYSEX_CONSTANTS.requestInfoMsg,
-  ]);
-};
-
-export const sendFactoryResetRequest = (output: Output) => {
-  output.sendSysex(SYSEX_CONSTANTS.sysexMfgId, [
-    SYSEX_CONSTANTS.factoryResetMsg,
   ]);
 };
