@@ -1,11 +1,10 @@
 <script lang="ts">
   import { logger } from "$lib/logger";
-  import { gte as semverGte } from "semver";
 
   import Button from "$lib/components/Button.svelte";
   import DeviceOptions from "$lib/components/DeviceOptions.svelte";
   import EditControl from "$lib/components/EditControl.svelte";
-  import FactoryReset from "$lib/components/FactoryReset.svelte";
+  import EditControlButton from "$lib/components/EditControlButton.svelte";
   import Subhead from "$lib/components/Subhead.svelte";
   import { Tab, TabList, TabPanel, Tabs } from "$lib/components/tabs";
 
@@ -51,7 +50,9 @@
   $: device = $configuration ? deviceForId($configuration.deviceId) : null;
 </script>
 
-<Subhead title="Edit Configuration">
+{#if $editConfiguration && $configuration}
+
+<Subhead title="Bank {$configuration.pageNumber + 1}: Edit configuration">
   <Button label="Cancel" icon="times" click={cancelEditMode} />
   <Button label="Import config" icon="file-import" click={doImportConfig} />
   <Button
@@ -65,11 +66,10 @@
 <Tabs>
   <TabList>
     <Tab>USB</Tab>
-    <Tab>TRS Jack</Tab>
+    <Tab>TRS Midi</Tab>
+    <Tab>USB Buttons</Tab> 
+    <Tab>TRS Buttons</Tab> 
     <Tab>Device Options</Tab>
-    {#if semverGte($configuration.firmwareVersion, "2.1.0")}
-      <Tab>Factory Reset</Tab>
-    {/if}
   </TabList>
 
   <TabPanel>
@@ -93,15 +93,35 @@
   </TabPanel>
 
   <TabPanel>
+    {#if device?.buttonCount}
+    <div id="controls">
+     {#each $editConfiguration.usbButtons as button, index}
+       {#if index < device.buttonCount}
+         <EditControlButton editButton={button} {index} />
+       {/if}
+     {/each}
+   </div>
+   {/if}
+ </TabPanel>
+ 
+ <TabPanel>
+    {#if device?.buttonCount}
+    <div id="controls">
+     {#each $editConfiguration.trsButtons as button, index}
+       {#if index < device.buttonCount}
+         <EditControlButton editButton={button} {index} />
+       {/if}
+     {/each}
+   </div>
+    {/if}
+ </TabPanel>
+
+  <TabPanel>
     <DeviceOptions />
   </TabPanel>
-
-  {#if semverGte($configuration.firmwareVersion, "2.1.0")}
-    <TabPanel>
-      <FactoryReset on:message />
-    </TabPanel>
-  {/if}
 </Tabs>
+
+{/if}
 
 <style>
   #controls {

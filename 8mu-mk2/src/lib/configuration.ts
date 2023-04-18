@@ -12,7 +12,7 @@ export const isEquivalent = (
     configA.midiThru == configB.midiThru &&
     configA.midiMode == configB.midiMode &&
     configA.dxMode == configB.dxMode &&
-    configA.pageNumber == configB.pageNumber &&
+    configA.pageNumber == configB.pageNumber;
 
   if ("i2cLeader" in configA || "i2cLeader" in configB) {
     optionEquivalents =

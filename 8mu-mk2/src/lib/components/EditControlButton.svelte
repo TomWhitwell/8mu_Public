@@ -5,7 +5,7 @@
   import type { Button } from "$lib/types";
 
   export let index:number;
-  export let editControl:Button;
+  export let editButton:Button;
 
   const possibleChannels = Array.from(Array(16).keys());
   possibleChannels.forEach((c, i) => (possibleChannels[i] = c + 1));
@@ -33,7 +33,7 @@
   <dt class='index'>Button {buttonNames[index]}</dt>
   <dt>Channel</dt>
   <dd>
-    <select bind:value={editControl.channel} on:change={touchChannel}>
+    <select bind:value={editButton.channel} on:change={touchChannel}>
       {#each possibleChannels as channel}
         <option value={channel}>{channel}</option>
       {/each}
@@ -42,27 +42,27 @@
 
   <dt>Mode</dt>
   <dd>
-   <select bind:value={editControl.mode} on:change={touchControl}>
+   <select bind:value={editButton.mode} on:change={touchControl}>
     {#each buttonModeNames as mode, index}
       <option value={index}>{mode}</option>
     {/each}
     </select>
   </dd>
 
-  {#if editControl.mode == 1}
+  {#if editButton.mode == 1}
   <dt>Note number</dt>
   <dd>
-    <select bind:value={editControl.paramA} on:change={touchControl}>
+    <select bind:value={editButton.paramA} on:change={touchControl}>
     {#each possibleCCs as CC}
       <option value={CC}>{CC}</option>
     {/each}
     </select>
-    ({fromMidi(editControl.paramA)})
+    ({fromMidi(editButton.paramA)})
   </dd>
   
   <dt>Velocity</dt>
   <dd>
-    <select bind:value={editControl.paramB} on:change={touchControl}>
+    <select bind:value={editButton.paramB} on:change={touchControl}>
     {#each possibleCCs as CC}
       <option value={CC}>{CC}</option>
     {/each}
@@ -71,7 +71,7 @@
   {:else}
   <dt>Controller</dt>
   <dd>
-    <select bind:value={editControl.paramA} on:change={touchControl}>
+    <select bind:value={editButton.paramA} on:change={touchControl}>
     {#each possibleCCs as CC}
       <option value={CC}>{CC}</option>
     {/each}
@@ -80,7 +80,7 @@
   
   <dt>On value</dt>
   <dd>
-    <select bind:value={editControl.paramB} on:change={touchControl}>
+    <select bind:value={editButton.paramB} on:change={touchControl}>
     {#each possibleCCs as CC}
       <option value={CC}>{CC}</option>
     {/each}

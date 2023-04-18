@@ -5,6 +5,7 @@ import {
   toTRSOptionsSysexArray,
   toUSBOptionsSysexArray,
 } from "$lib/configuration";
+
 import type { ControllerConfiguration } from "$lib/types";
 import type { Output } from "webmidi";
 

@@ -44,12 +44,15 @@
   {/if}
   |
    
+  <!--
   DX mode
   {#if $configuration.dxMode}
   on
   {:else if !$configuration.dxMode}
   off 
   {/if}
+  |
+  -->
    
   Tip: {randomTip()}
    

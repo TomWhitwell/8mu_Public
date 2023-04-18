@@ -2,22 +2,17 @@
   /* global __BUILD_VERSION__ */
 
   import { browser } from "$app/environment";
-  import { gte as semverGte } from "semver";
   import { onMount } from "svelte";
   import { WebMidi } from "webmidi";
 
   import { onMIDISuccess } from "$lib/midi/midi";
-  import { sendFactoryResetRequest } from "$lib/midi/sysex";
 
   import {
     configuration,
-    controllerMightNeedFactoryReset,
     editMode,
-    selectedMidiOutput,
     webMidiEnabled,
   } from "$lib/stores";
 
-  import Button from "$lib/components/Button.svelte";
   import DeviceDetails from "$lib/components/DeviceDetails.svelte";
   import Editing from "./Editing.svelte";
   import Viewing from "./Viewing.svelte";
@@ -35,11 +30,6 @@
     }
   });
 
-  const transmitFactoryReset = () => {
-    if ($selectedMidiOutput) {
-      sendFactoryResetRequest($selectedMidiOutput);
-    }
-  };
 </script>
 
 <main>
@@ -73,7 +63,7 @@
 
   <div id="foot">
     <div class="foot-left">
-      16n Editor v{buildVersion}
+      8mu Editor v{buildVersion}
     </div>
   </div>
 </main>
