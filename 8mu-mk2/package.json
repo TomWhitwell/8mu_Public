@@ -1,8 +1,8 @@
 {
-  "name": "16n-editor",
-  "version": "2.0.2",
+  "name": "8mu-editor",
+  "version": "2.0.0",
   "config": {
-    "firmwareVersion": "2.1.1"
+    "firmwareVersion": "1.0.1"
   },
   "private": true,
   "scripts": {
