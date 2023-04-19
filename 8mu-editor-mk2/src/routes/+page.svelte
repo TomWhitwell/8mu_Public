@@ -46,7 +46,8 @@
       {:else}
         <!-- webmidi compatible browser, but no device -->
         <p class="notice">
-          Searching for a controller via USB, hang on a second or ten.<br/><br/>
+          Searching for a controller via USB, hang on a second or ten.<br /><br
+          />
           If you haven't plugged in your 8mu, do it now.
         </p>
       {/if}

@@ -1,8 +1,8 @@
 # 8mu editor
 
-The 8mu editor allows you to edit the configuration of your 8mu from within a web browser. 
+The 8mu editor allows you to edit the configuration of your 8mu from within a web browser.
 
-The 8mu editor is a rework of the 16n editor,  a Javascript app based around [Svelte](svelte) built by Tom Armitage. The rest of these notes are largely his.
+The 8mu editor is a rework of the 16n editor, a Javascript app based around [Svelte](svelte) built by Tom Armitage. The rest of these notes are largely his.
 
 ---
 
