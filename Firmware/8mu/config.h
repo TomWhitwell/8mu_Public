@@ -10,6 +10,7 @@
 
 Hardware revisions during prototyping 
 
+8mu Rev 1 = same as Proto 3.1
 
 8mu Proto 3.1 
 = Hardware midi only works in Mode XXXX

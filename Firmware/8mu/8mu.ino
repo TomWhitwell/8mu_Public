@@ -8,21 +8,18 @@
   MIT License
 */
 /*
-   Using library ResponsiveAnalogRead at version 1.2.1
-   Using library Adafruit_SPIFlash at version 4.0.0 
+   Using library ResponsiveAnalogRead at version 1.2.1 (edited local version from v1.0.2)
+   Using library Adafruit_SPIFlash at version 4.0.0
    Using library Bounce2 at version 2.60
    Using library BMI160-Arduino-master
    Using library Adafruit_TinyUSB_Library at version 0.10.0
    NB: USB Stack TinyUSB
-   
+
 */
 
 
-
-
-
 #include "uMidi.h"
-#include <ResponsiveAnalogRead.h>
+#include "ResponsiveAnalogRead.h"
 #include "EEPROMFlash.h"
 #include <Bounce2.h>
 #include <BMI160Gen.h>
@@ -32,7 +29,7 @@
 // Config variables
 int MAJOR_VERSION = 0x01;
 int MINOR_VERSION = 0x00;
-int POINT_VERSION = 0x01;
+int POINT_VERSION = 0x02;
 const int DEVICE_ID = 0x04; //   0x04 = 8mu
 
 // Create Midi
@@ -65,7 +62,7 @@ const byte leds[8] = {0, 1, 5, 7, 10, 11, 12, 13};
 const byte leds[8] = {0, 44, 5, 7, 10, 11, 12, 13};
 #else
 const byte leds[8] = {0, 1, 5, 7, 10, 11, 12, 13};
-#endif 
+#endif
 
 
 #define NUM_BUTTONS 6 // all buttons 
@@ -152,8 +149,15 @@ void setup() {
   // Setup smoothing and initialise variables
   for (int i = 0; i < channelCount; i++)
   {
-    analog[i] = new ResponsiveAnalogRead(0, true, .001);
-    analog[i] = new ResponsiveAnalogRead(0, true, .0001);
+
+    if (i < 8) {
+      analog[i] = new ResponsiveAnalogRead(0, true, .001); // smoothing for fader channels, lower is smoother
+    }
+    else {
+      analog[i] = new ResponsiveAnalogRead(0, true, .0005);// smoothing for IMU channels, lower is smoother
+
+    }
+    analog[i]->setAnalogResolution(1 << adcResolutionBits);
     analog[i]->setActivityThreshold(4 << (adcResolutionBits - 10));
     currentValue[i] = 0;
     lastMidiValue[i] = 0;
@@ -197,7 +201,7 @@ void setup() {
   if (!buttons[0].read() && !buttons[1].read() && !buttons[2].read() && !buttons[3].read() ) {
     initializeFactorySettingsFast();
   }
-  
+
   // Read defaults from the virtual EEPRPOM
   checkDefaultSettings();
   loadSettingsFromEEPROM();
@@ -208,7 +212,7 @@ void setup() {
 
 
 void loop() {
-  
+
   // Poll to check and send midi every midiInterval
   if (micros() - midiTimerClock > midiInterval) {
     midiTimerClock = micros();
@@ -218,7 +222,7 @@ void loop() {
     if (myMidi.sysexAvailable()) processIncomingSysex(myMidi.returnSysex(), sizeof(myMidi.returnSysex()));
     // update LEDs
     doLeds();
-    
+
   }
 
   // Check buttons for page/bank changes
@@ -230,8 +234,8 @@ void loop() {
     analog[j]->update(analogRead(faders[thisFader]));
     int temp = analog[j]->getValue();
     temp = constrain(temp, faderMin, faderMax);
-    temp = map(temp, faderMin, faderMax, 0, (1 << adcResolutionBits)-1);
-    if (!flip) temp = ((1 << adcResolutionBits)-1 )- temp;
+    temp = map(temp, faderMin, faderMax, 0, (1 << adcResolutionBits) - 1);
+    if (!flip) temp = ((1 << adcResolutionBits) - 1 ) - temp;
     currentValue[j] = temp;
   }
 
@@ -241,7 +245,7 @@ void loop() {
     analog[j + 8]->update(gesture(j));
     int temp = analog[j + 8]->getValue();
     temp = constrain(temp, faderMin, faderMax);
-    temp = map(temp, faderMin, faderMax, 0, (1 << adcResolutionBits)-1);
+    temp = map(temp, faderMin, faderMax, 0, (1 << adcResolutionBits) - 1);
     currentValue[j + 8] = temp;
   }
 
@@ -311,7 +315,7 @@ void writeMidi() {
         case normal:
 
           // send the message over USB
-          // myMidi will not send on channel 0, so channel 0 = off 
+          // myMidi will not send on channel 0, so channel 0 = off
           myMidi.CC(usbChannels[q], usbCCs[q], shiftyTemp);
           // send the message over physical midi
           myMidi.hardCC(trsChannels[q], trsCCs[q], shiftyTemp);
