@@ -153,8 +153,8 @@ void setup() {
   for (int i = 0; i < channelCount; i++)
   {
     analog[i] = new ResponsiveAnalogRead(0, true, .001);
-    analog[i]->setAnalogResolution(1 << adcResolutionBits);
-    analog[i]->setActivityThreshold(8 << (adcResolutionBits - 10));
+    analog[i] = new ResponsiveAnalogRead(0, true, .0001);
+    analog[i]->setActivityThreshold(4 << (adcResolutionBits - 10));
     currentValue[i] = 0;
     lastMidiValue[i] = 0;
   }
