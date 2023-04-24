@@ -64,11 +64,11 @@ We use `prettier` for code formatting. From your local directory:
 
 will prettify the `src/` directory. Code that fails Prettier's formatting standards will block merge at Github.
 
-We're using a similar approach to [the one Simon Willison describes here](https://til.simonwillison.net/github-actions/prettier-github-actions).
-
 Code linting is handled with ESLint, and code must meet the Prettier formatting standards in order to lint:
 
     npm run lint
+
+Currently, the 8mu fork does _not_ enforce code style on push, unlike 16n.
 
 ## Project Structure
 
