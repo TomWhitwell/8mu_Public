@@ -22,7 +22,7 @@ install 'MusicThing M0 Plus' into the Arduino IDE, and select that board.
 # Circuit Python 
 
 * This folder is designed for Circuit Python 7.3.3 
-* The 'libs' folder includes drivers for the BMI160 acellerometer and a 
+* The 'libs' folder includes drivers for the BMI160 accelerometer and a 
 super minimal Midi library. Nothing else should be required. 
 * The BMI160 is precompiled to an .mpy file. The uncompiled version is 
 there in a separate folder. 
