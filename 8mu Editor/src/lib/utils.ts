@@ -11,8 +11,8 @@ export const inputNames = [
   "↑ Back",
   "↑ Right",
   "↑ Left",
-  "⟳",
-  "⟲",
+  "↻",
+  "↺",
   "ʎɐʍ sᴉɥʇ",
   "this way",
 ];

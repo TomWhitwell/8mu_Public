@@ -1,0 +1,21 @@
+#controls.svelte-14q15au.svelte-14q15au{display:flex;min-width:calc(16 * 60px)}#head.svelte-14q15au.svelte-14q15au{margin-bottom:1rem;border-bottom:1px solid #ccc;display:flex}#head.svelte-14q15au h1.svelte-14q15au{flex:1 0;margin:0 0 2rem}#head.svelte-14q15au .details.svelte-14q15au{flex:1 0}p.device.svelte-14q15au.svelte-14q15au{text-align:right}main.svelte-14q15au.svelte-14q15au{width:75%;margin:0 auto;min-width:calc(16*75px)}#foot.svelte-14q15au.svelte-14q15au{font-size:80%;border-top:1px solid #ccc;padding-top:5px}span.upgrade.svelte-14q15au.svelte-14q15au{display:block;margin-top:25px;border:10px solid pink;border-image:repeating-linear-gradient(
+    -55deg,
+    #000,
+    #000 5px,
+    #ffb101 5px,
+    #ffb101 10px
+  ) 10;color:#000;text-align:center;padding:5px;background:#ffcc33}
+div.svelte-1gcivh1{margin:0;display:inline-block}button.svelte-1gcivh1{text-align:left;border-radius:5px;display:inline-block}
+dl.svelte-5fijw0{flex:1;text-align:center}dt.svelte-5fijw0{font-weight:bold;border-top:1px solid #aaa;padding-top:0.5rem;margin-right:5px}dt.index.svelte-5fijw0{background:#666;color:#f0f0f0;padding:0.5rem 0}dd.svelte-5fijw0{padding:0 0 0.5rem 0;border-bottom:1px solid #aaa;margin:0;margin-right:5px}
+dl.svelte-5fijw0{flex:1;text-align:center}dt.svelte-5fijw0{font-weight:bold;border-top:1px solid #aaa;padding-top:0.5rem;margin-right:5px}dt.index.svelte-5fijw0{background:#666;color:#f0f0f0;padding:0.5rem 0}dd.svelte-5fijw0{padding:0 0 0.5rem 0;border-bottom:1px solid #aaa;margin:0;margin-right:5px}dd.display.svelte-5fijw0{height:150px;position:relative;padding:0 0 0.5rem 0}.bar.svelte-5fijw0{background:black;display:block;width:35px;margin:0 auto}.inner.svelte-5fijw0{bottom:0.5rem;position:absolute;width:100%}span.svelte-5fijw0{display:block;position:absolute;color:white;padding:0;top:6px;left:0;width:100%}span.lowvalue.svelte-5fijw0{top:-20px;color:black}
+#debugconsole.svelte-kesk1f.svelte-kesk1f{margin-top:4rem;opacity:0.5}#debugconsole.svelte-kesk1f textarea.svelte-kesk1f{font-family:monospace;color:#eee;background:#111;border:1px solid #888;width:50%}
+span.fas.mid.svelte-pvbvkq{color:#888}span.fas.light.svelte-pvbvkq{color:#ccc}
+.container.svelte-1c41yqt.svelte-1c41yqt{text-align:right}.wrap.svelte-1c41yqt.svelte-1c41yqt{display:inline-block}label.svelte-1c41yqt.svelte-1c41yqt{display:inline-block;font-weight:bold}select.svelte-1c41yqt.svelte-1c41yqt{display:inline-block;width:240px;transition:0.75s ease}.changed.svelte-1c41yqt select.svelte-1c41yqt{transition:0.75s ease;box-shadow:0 0 10px #800}p.svelte-1c41yqt.svelte-1c41yqt{margin:0}
+p.note.svelte-idpdcv{width:600px;line-height:1.2}p.note.small.svelte-idpdcv{font-size:85%}label.svelte-idpdcv{font-weight:bold}
+.subhead.svelte-1o2kpty.svelte-1o2kpty{display:flex}.subhead.svelte-1o2kpty h2.svelte-1o2kpty{flex:3;margin:0}.subhead.svelte-1o2kpty.svelte-1o2kpty p{margin:0}.subhead.svelte-1o2kpty .details.svelte-1o2kpty{flex:2;text-align:right}
+dl.svelte-6nh3sy{flex:1;text-align:center}dt.svelte-6nh3sy{font-weight:bold;border-top:1px solid #aaa;padding-top:0.5rem;margin-right:5px}dt.index.svelte-6nh3sy{background:#666;color:#f0f0f0;padding:0.5rem 0}dd.svelte-6nh3sy{padding:0 0 0.5rem 0;border-bottom:1px solid #aaa;margin:0;margin-right:5px}
+dl.svelte-6nh3sy{flex:1;text-align:center}dt.svelte-6nh3sy{font-weight:bold;border-top:1px solid #aaa;padding-top:0.5rem;margin-right:5px}dt.index.svelte-6nh3sy{background:#666;color:#f0f0f0;padding:0.5rem 0}dd.svelte-6nh3sy{padding:0 0 0.5rem 0;border-bottom:1px solid #aaa;margin:0;margin-right:5px}
+.tab-list.svelte-w6hq5a{border-bottom:1px solid #888;margin-bottom:1rem;height:32px}
+button.svelte-1y3smnx{background:none;border:none;border-bottom:1px solid #888;border-radius:0;margin:0;color:#aaa;padding-left:6px;padding-right:6px}.selected.svelte-1y3smnx{border-top:1px solid #888;border-right:1px solid #888;border-left:1px solid #888;border-bottom:1px solid #f0f0f0;border-radius:2px;color:#333;padding-left:5px;padding-right:5px}button.svelte-1y3smnx:hover{cursor:pointer;border-top:1px solid #888;border-right:1px solid #888;border-left:1px solid #888}
+
+/*# sourceMappingURL=bundle.css.map */
