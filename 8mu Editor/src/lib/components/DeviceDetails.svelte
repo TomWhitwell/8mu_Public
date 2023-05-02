@@ -66,7 +66,24 @@
   }
   span.upgrade {
     display: block;
-    margin-top: 5px;
-    color: #888;
-  }
+  margin-top: 25px;
+  border: 10px solid pink;
+  border-image: repeating-linear-gradient(
+  -55deg,
+  #000,
+  #000 5px,
+  #ffb101 5px,
+  #ffb101 10px  ) 10;
+  text-align: center;
+  padding: 5px;
+  background: #ffcc33; 
+ }  
+
+    
+    
+    
+    
+    
+    
+  
 </style>

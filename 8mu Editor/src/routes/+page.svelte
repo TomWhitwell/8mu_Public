@@ -48,7 +48,8 @@
         <p class="notice">
           Searching for a controller via USB, hang on a second or ten.<br /><br
           />
-          If you haven't plugged in your 8mu, do it now.
+          If you haven't plugged in your 8mu, do it now.<br /><br /><br />
+          <img src="https://www.musicthing.co.uk/images/8mu_editor_crop.png">
         </p>
       {/if}
     {:else}
@@ -62,7 +63,7 @@
 
   <div id="foot">
     <div class="foot-left">
-      8mu Editor v{buildVersion}
+      8mu Editor v{buildVersion} <br>Having trouble? Please try <a href="https://tomwhitwell.github.io/test-host/">v1.0.1</a> and <a href="https://github.com/TomWhitwell/8mu_Public/issues"> let me know</a>.
     </div>
   </div>
 </main>
@@ -110,4 +111,9 @@
     text-align: center;
     margin-top: 6rem;
   }
+  
+  
+
+  
+  
 </style>
