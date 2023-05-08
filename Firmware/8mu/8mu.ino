@@ -152,13 +152,15 @@ void setup() {
 
     if (i < 8) {
       analog[i] = new ResponsiveAnalogRead(0, true, .001); // smoothing for fader channels, lower is smoother
+      analog[i]->setActivityThreshold(16); // sleep threshold for fader 
+
     }
     else {
-      analog[i] = new ResponsiveAnalogRead(0, true, .0005);// smoothing for IMU channels, lower is smoother
+      analog[i] = new ResponsiveAnalogRead(0, true, .000001);// smoothing for IMU channels, lower is smoother
+      analog[i]->setActivityThreshold(32); // sleep threshold for IMU 
 
     }
     analog[i]->setAnalogResolution(1 << adcResolutionBits);
-    analog[i]->setActivityThreshold(4 << (adcResolutionBits - 10));
     currentValue[i] = 0;
     lastMidiValue[i] = 0;
   }

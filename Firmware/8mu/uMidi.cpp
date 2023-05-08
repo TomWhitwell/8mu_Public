@@ -5,15 +5,6 @@
 */
 
 
-/*
- * NB CHECK HARDWARE DIFFERENCES BETWEEN 3.1 AND 2.1 <-- RE: MIDI 
- */
-
-
-
-
-
-
 
 #include <Adafruit_TinyUSB.h>
 #include <Arduino.h>
@@ -29,10 +20,6 @@ Adafruit_USBD_MIDI usb_midi;
    MIDI A: Tip = Sink, Ring = Source
    MIDI B: Tip = Source, Ring = Sink
 
-   In the modified board (different from 3.2 schematic):
-   Pin 45 = Ring
-   Pin 1 = Tip
-
 */
 
 
@@ -43,13 +30,6 @@ byte midi_tip = 1; // PA10
 byte midi_ring = 45; // PA08
 
 #endif
-
-
-
-
-
-
-
 
 
 // TYPE A
@@ -80,15 +60,6 @@ Uart hardMidi (&sercom2, midi_tip, midi_ring, SERCOM_RX_PAD_1, midi_TX_pad);
 Uart hardMidi (&sercom2, 3, 4, SERCOM_RX_PAD_1, UART_TX_PAD_0);
 
 #endif
-
-
-
-
-
-
-
-
-
 
 
 
@@ -153,7 +124,7 @@ void uMidi::noteOn (byte channel, byte pitch, byte velocity) {
 void uMidi::hardNoteOn(byte channel, byte pitch, byte velocity) {
   // Channel 0 used to turn MIDI outputs off
   if (channel < 1) return;
-  hardMidi.write(NOTE_ON & 0xf0) | ((channel - 1) & 0x0f);
+  hardMidi.write((NOTE_ON & 0xf0) | ((channel - 1) & 0x0f));
   hardMidi.write(pitch);
   hardMidi.write(velocity);
 }
@@ -172,7 +143,7 @@ void uMidi::hardNoteOff(byte channel, byte pitch) {
   // Channel 0 used to turn MIDI outputs off
   if (channel < 1) return;
   byte velocity = 0;
-  hardMidi.write(NOTE_OFF & 0xf0) | ((channel - 1) & 0x0f);
+  hardMidi.write((NOTE_OFF & 0xf0) | ((channel - 1) & 0x0f));
   hardMidi.write(pitch);
   hardMidi.write(velocity);
 }
@@ -190,7 +161,7 @@ void uMidi::CC (byte channel, byte controller, byte level) {
 void uMidi::hardCC(byte channel, byte controller, byte level) {
   // Channel 0 used to turn MIDI outputs off
   if (channel < 1) return;
-  hardMidi.write(CONT_CONT & 0xf0) | ((channel - 1) & 0x0f);
+  hardMidi.write((CONT_CONT & 0xf0) | ((channel - 1) & 0x0f));
   hardMidi.write(controller);
   hardMidi.write(level);
 }
