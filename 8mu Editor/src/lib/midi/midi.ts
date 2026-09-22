@@ -175,9 +175,10 @@ const listenForSysex = (input: Input) => {
       const isSignedSamd = [0x53, 0x41, 0x4d, 0x44].every(
         (value, index) => data[18 + index] === value,
       );
+      const isUnsignedSamd = ["1.5.0", "1.5.1"].includes(firmwareVersion);
       const modernDevice =
         data[5] === 6
-          ? isSignedSamd
+          ? isSignedSamd || isUnsignedSamd
             ? "8mu v1"
             : "8mu v2"
           : data[5] === 4 && semverGte(firmwareVersion, "1.5.0")
