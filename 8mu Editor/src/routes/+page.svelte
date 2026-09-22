@@ -1,5 +1,5 @@
 <script lang="ts">
-  /* global __BUILD_VERSION__ */
+  /* global __BUILD_VERSION__, __FIRMWARE_VERSION__ */
 
   import { browser } from "$app/environment";
   import { onMount } from "svelte";
@@ -7,13 +7,19 @@
 
   import { onMIDISuccess } from "$lib/midi/midi";
 
-  import { configuration, editMode, webMidiEnabled } from "$lib/stores";
+  import {
+    configuration,
+    editMode,
+    modernEditorDevice,
+    webMidiEnabled,
+  } from "$lib/stores";
 
   import DeviceDetails from "$lib/components/DeviceDetails.svelte";
   import Editing from "./Editing.svelte";
   import Viewing from "./Viewing.svelte";
 
   const buildVersion = __BUILD_VERSION__;
+  const latestFirmwareVersion = __FIRMWARE_VERSION__;
 
   const supportsWebMidi = browser ? !!navigator.requestMIDIAccess : true;
 
@@ -35,7 +41,27 @@
 
   <div id="inner">
     {#if $webMidiEnabled}
-      {#if $configuration}
+      {#if $modernEditorDevice}
+        {#if $modernEditorDevice.needsFirmwareUpdate}
+          <p class="notice modern-editor-notice">
+            <strong>
+              Please update your 8mu v1 to firmware {latestFirmwareVersion}
+              before using the 16n Editor.
+            </strong>
+            <br /><br />
+            <a href="https://github.com/TomWhitwell/Smith-Kakehashi/releases"
+              >Download the latest firmware</a
+            >
+          </p>
+        {:else}
+          <p class="notice modern-editor-notice">
+            <strong>
+              Please use the
+              <a href="https://16n-faderbank.github.io/editor/">16n Editor</a>
+            </strong>
+          </p>
+        {/if}
+      {:else if $configuration}
         <!-- webmidi enabled, config setup, we're good to edit -->
         {#if $editMode}
           <Editing />
@@ -49,7 +75,10 @@
           Searching for a controller via USB, hang on a second or ten.<br /><br
           />
           If you haven't plugged in your 8mu, do it now.<br /><br /><br />
-          <img src="https://www.musicthing.co.uk/images/8mu_editor_crop.png">
+          <img
+            src="https://www.musicthing.co.uk/images/8mu_editor_crop.png"
+            alt="Music Thing Modular 8mu controller"
+          />
         </p>
       {/if}
     {:else}
@@ -63,7 +92,10 @@
 
   <div id="foot">
     <div class="foot-left">
-      8mu Editor v{buildVersion} <br>Having trouble? Please try <a href="https://tomwhitwell.github.io/test-host/">v1.0.1</a> and <a href="https://github.com/TomWhitwell/8mu_Public/issues"> let me know</a>.
+      8mu Editor v{buildVersion}<br />
+      <a href="https://github.com/TomWhitwell/Smith-Kakehashi/releases"
+        >Latest Firmware for 8mu v1</a
+      >
     </div>
   </div>
 </main>
@@ -111,9 +143,8 @@
     text-align: center;
     margin-top: 6rem;
   }
-  
-  
 
-  
-  
+  .modern-editor-notice {
+    font-size: 1.5rem;
+  }
 </style>

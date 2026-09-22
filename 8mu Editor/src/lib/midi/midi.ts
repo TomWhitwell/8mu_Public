@@ -1,4 +1,5 @@
 import { get } from "svelte/store";
+import { gte as semverGte } from "semver";
 import type {
   ControlChangeMessageEvent,
   Input,
@@ -14,6 +15,7 @@ import {
   configuration,
   midiInputs,
   midiOutputs,
+  modernEditorDevice,
   selectedMidiInput,
   selectedMidiOutput,
   webMidiEnabled,
@@ -27,6 +29,7 @@ let configTimeout = -1;
 
 selectedMidiInput.subscribe((newInput) => {
   if (newInput) {
+    modernEditorDevice.set(null);
     get(midiInputs).forEach((input) => {
       input.removeListener();
     });
@@ -39,6 +42,7 @@ selectedMidiInput.subscribe((newInput) => {
 
 selectedMidiOutput.subscribe((newOutput) => {
   if (newOutput) {
+    modernEditorDevice.set(null);
     configuration.set(null);
     doRequestConfig();
   }
@@ -102,6 +106,7 @@ const setupMidiHeartBeat = () => {
     selectedMidiOutput.set(null);
 
     configuration.set(null);
+    modernEditorDevice.set(null);
     doMidiHeartBeat();
   });
   setInterval(() => {
@@ -112,37 +117,25 @@ const setupMidiHeartBeat = () => {
 const doMidiHeartBeat = () => {
   const selectedInput = get(selectedMidiInput);
   const selectedOutput = get(selectedMidiOutput);
-
   if (!selectedInput && get(midiInputs).length > 0) {
-    const sixteenN = get(midiInputs).find((input) =>
-      input.name.match(/.*16n.*/),
+    const controller = get(midiInputs).find((input) =>
+      `${input.manufacturer} ${input.name}`.match(/16n|8mu|Music Thing/i),
     );
-    if (sixteenN) {
-      selectedMidiInput.set(sixteenN);
-    }
-
-    const mtmN = get(midiInputs).find((input) => input.name.match(/.*Music.*/));
-    if (mtmN) {
-      selectedMidiInput.set(mtmN);
+    if (controller) {
+      selectedMidiInput.set(controller);
     }
   }
   if (!selectedOutput && get(midiOutputs).length > 0) {
-    const sixteenN = get(midiOutputs).find((output) =>
-      output.name.match(/.*16n.*/),
+    const controller = get(midiOutputs).find((output) =>
+      `${output.manufacturer} ${output.name}`.match(/16n|8mu|Music Thing/i),
     );
-    if (sixteenN) {
-      selectedMidiOutput.set(sixteenN);
-    }
-    const mtmN = get(midiOutputs).find((output) =>
-      output.name.match(/.*Music.*/),
-    );
-    if (mtmN) {
-      selectedMidiOutput.set(mtmN);
+    if (controller) {
+      selectedMidiOutput.set(controller);
     }
   }
   // this change allows heartbeat to continue - repeatedly asking the device for configuration so long as it's attached.
   // if (!get(configuration) && selectedInput && selectedOutput) {
-  if (selectedInput && selectedOutput) {
+  if (selectedInput && selectedOutput && !get(modernEditorDevice)) {
     listenForCC(selectedInput);
     listenForSysex(selectedInput);
     logger("Hearbeat requesting config.");
@@ -178,6 +171,39 @@ const listenForSysex = (input: Input) => {
     }
     if (data[4] == 0x0f) {
       // it's an c0nFig message!
+      const firmwareVersion = `${data[6]}.${data[7]}.${data[8]}`;
+      const isSignedSamd = [0x53, 0x41, 0x4d, 0x44].every(
+        (value, index) => data[18 + index] === value,
+      );
+      const modernDevice =
+        data[5] === 6
+          ? isSignedSamd
+            ? "8mu v1"
+            : "8mu v2"
+          : data[5] === 4 && semverGte(firmwareVersion, "1.5.0")
+          ? "8mu v1"
+          : null;
+
+      if (modernDevice) {
+        const needsFirmwareUpdate =
+          modernDevice === "8mu v1" &&
+          !semverGte(firmwareVersion, __FIRMWARE_VERSION__);
+        configuration.set(null);
+        modernEditorDevice.set({
+          name: modernDevice,
+          firmwareVersion,
+          needsFirmwareUpdate,
+        });
+        configTimeout = -1;
+        logger(
+          needsFirmwareUpdate
+            ? `Detected ${modernDevice} firmware ${firmwareVersion}; update required`
+            : `Detected ${modernDevice}; directing the user to the 16n Editor`,
+        );
+        return;
+      }
+
+      modernEditorDevice.set(null);
       configuration.set(configFromSysexArray(data));
       logger("Received config", get(configuration));
 

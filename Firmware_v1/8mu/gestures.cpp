@@ -1,4 +1,7 @@
-// Convert raw IMU results to meaninful gestures
+#include <Arduino.h>
+#include "firmware.h"
+
+// Convert raw IMU results to meaningful gestures
 
 // maximum "high" value. With vigorous shaking, IMU outputs values to +/- 32767
 // but in normal gentle use, max output is around +/-15000 to +/-20000 
@@ -67,4 +70,6 @@ int gesture(byte num) {
       break;
 
   }
+
+  return 0;
 }

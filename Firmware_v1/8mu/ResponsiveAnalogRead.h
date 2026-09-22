@@ -77,10 +77,10 @@ class ResponsiveAnalogRead
     float errorEMA = 0.0;
     bool sleeping = false;
 
-    int rawValue;
-    int responsiveValue;
-    int prevResponsiveValue;
-    bool responsiveValueHasChanged;
+    int rawValue = 0;
+    int responsiveValue = 0;
+    int prevResponsiveValue = 0;
+    bool responsiveValueHasChanged = false;
 
     int getResponsiveValue(int newValue);
     float snapCurve(float x);

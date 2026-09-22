@@ -12,3 +12,9 @@ export const midiOutputs = writable([] as Output[]);
 export const selectedMidiInput = writable(null as Input | null);
 export const selectedMidiOutput = writable(null as Output | null);
 export const webMidiEnabled = writable(false);
+export type ModernEditorDevice = {
+  name: "8mu v1" | "8mu v2";
+  firmwareVersion: string;
+  needsFirmwareUpdate: boolean;
+};
+export const modernEditorDevice = writable(null as ModernEditorDevice | null);
